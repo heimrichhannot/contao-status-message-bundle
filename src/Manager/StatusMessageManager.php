@@ -6,7 +6,7 @@
  * @license LGPL-3.0-or-later
  */
 
-namespace HeimrichHannot\StatusMessageBundle\Util;
+namespace HeimrichHannot\StatusMessageBundle\Manager;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
