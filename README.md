@@ -56,6 +56,8 @@ For example, if you like to bind your messages to a specific module, the scope k
 use HeimrichHannot\StatusMessageBundle\Manager\StatusMessageManager;
 
 // ...
+protected StatusMessageManager $statusMessageManager;
+// ...
 
 // use this scope key to output the messages after you've added them (see below)
 $scopeKey = $this->statusMessageManager->getScopeKey(
@@ -63,8 +65,7 @@ $scopeKey = $this->statusMessageManager->getScopeKey(
     $module->id
 );
 
-// of course, you can also use autowiring ;-)
-System::getContainer()->get(StatusMessageManager::class)->addSuccessMessage(
+$this->statusMessageManager->addSuccessMessage(
     'Everything worked well :-)',
     $scopeKey
 );
@@ -80,7 +81,7 @@ is rendered, the messages are displayed after a site reload only (messages are s
 
 ### Programmatically output messages in twig templates
 
-Simply pass the scope key (which is the flash bag key internally) to your twig template and use symfony's flash API to output the messages
+Simply pass the scope key (which is the flash bag key internally) to your twig template and use symfony's flash message API to output the messages
 (`scopeKey` might be something `huh_status_message.module.1234` whereas `module` is the scope and `1234` is the module id):
 
 ```twig
@@ -97,16 +98,37 @@ Simply pass the scope key (which is the flash bag key internally) to your twig t
 
 ### Programmatically output messages in traditional html5 templates
 
-Simply pass the scope key (which is the flash bag key internally) to your template and use symfony's flash API to output the messages
-(`scopeKey` might be something `huh_status_message.module.1234` whereas `module` is the scope and `1234` is the module id):
+At first, so the necessary logic in your module (or content element) controller:
 
 ```php
-<?php $statusMessageManager = System::getContainer()->get(\HeimrichHannot\StatusMessageBundle\Manager\StatusMessageManager::class) ?>
+use HeimrichHannot\StatusMessageBundle\Manager\StatusMessageManager;
 
-<?php if ($statusMessageManager->hasMessages($this->scopeKey)): ?>
-    <?php $messages = $statusMessageManager->getMessages($this->scopeKey); ?>
+// ...
+protected StatusMessageManager $statusMessageManager;
+// ...
 
-    <?php foreach ($messages as $message): ?>
+protected function getResponse(Template $template, ModuleModel $module, Request $request): ?Response {
+    $scopeKey = $this->statusMessageManager->getScopeKey(
+        $module->statusMessageScopeType,
+        $module->statusMessageScopeContext
+    );
+    
+    $template->hasMessages = $this->statusMessageManager->hasMessages($scopeKey);
+    
+    if ($template->hasMessages) {
+        $template->messages = $this->statusMessageManager->getMessages($scopeKey);
+    }
+    
+    return $template->getResponse();
+}
+
+```
+
+Then in your template, use the data as follows:
+
+```html
+<?php if ($this->hasMessages): ?>
+    <?php foreach ($this->messages as $message): ?>
         <div class="<?= $message['type'] ?>">
             <?= $message['text'] ?>
         </div>
