@@ -50,10 +50,6 @@ class StatusMessageQueueModuleController extends AbstractFrontendModuleControlle
             );
         }
 
-        $this->statusMessageManager->addSuccessMessage('Good news :-) This is a success message.', $flashBagKey);
-        $this->statusMessageManager->addErrorMessage('Oh no! This is an error message.', $flashBagKey);
-        $this->statusMessageManager->addWarningMessage('Be careful! This is a warning message.', $flashBagKey);
-
         $templateData['flashBagKey'] = $flashBagKey;
 
         $templateName = $this->twigTemplateLocator->getTemplatePath(
