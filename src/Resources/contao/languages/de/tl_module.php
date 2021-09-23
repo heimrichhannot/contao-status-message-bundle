@@ -1,17 +1,23 @@
 <?php
 
+/*
+ * Copyright (c) 2021 Heimrich & Hannot GmbH
+ *
+ * @license LGPL-3.0-or-later
+ */
+
 $lang = &$GLOBALS['TL_LANG']['tl_module'];
 
-/**
+/*
  * Fields
  */
-$lang['statusMessageFlashBagKeyMode'][0] = 'FlashBagKey-Modus';
-$lang['statusMessageFlashBagKeyMode'][1] = 'Wählen Sie hier aus, ob Sie den FlashBagKey manuell oder mit Unterstützung eingeben möchten.';
+$lang['statusMessageScopeKeyMode'][0] = 'Scope-Key-Modus';
+$lang['statusMessageScopeKeyMode'][1] = 'Wählen Sie hier aus, ob Sie den Scope-Key manuell oder mit Unterstützung eingeben möchten.';
 
-$lang['statusMessageFlashBagType'][0] = 'FlashBagKey-Typ';
-$lang['statusMessageFlashBagType'][1] = 'Wählen Sie hier einen Typ aus.';
+$lang['statusMessageScopeType'][0] = 'Scope-Typ';
+$lang['statusMessageScopeType'][1] = 'Wählen Sie hier einen Typ aus.';
 
-$lang['statusMessageContext'][0] = 'FlashBagKey-Kontext';
+$lang['statusMessageContext'][0] = 'Scope-Kontext';
 $lang['statusMessageContext'][1] = 'Wählen Sie hier einen Kontext aus.';
 
 $lang['statusMessageQueueTemplate'][0] = 'Modulinhalts-Template';
@@ -22,9 +28,9 @@ $lang['statusMessageQueueTemplate'][1] = 'Wählen Sie hier das gewünschte Templ
  */
 $lang['reference']['huhStatusMessageBundle'] = [
     \HeimrichHannot\StatusMessageBundle\DataContainer\ModuleContainer::FLASH_BAG_KEY_TYPE_STANDARD => 'Standard',
-    \HeimrichHannot\StatusMessageBundle\DataContainer\ModuleContainer::FLASH_BAG_KEY_TYPE_MANUAL   => 'Manuell',
+    \HeimrichHannot\StatusMessageBundle\DataContainer\ModuleContainer::SCOPE_KEY_TYPE_MANUAL => 'Manuell',
 
-    \HeimrichHannot\StatusMessageBundle\Manager\StatusMessageManager::FLASH_BAG_TYPE_GENERAL         => 'Allgemeine Meldungen',
-    \HeimrichHannot\StatusMessageBundle\Manager\StatusMessageManager::FLASH_BAG_TYPE_MODULE          => 'Meldungen für ein spezielles Modul',
-    \HeimrichHannot\StatusMessageBundle\Manager\StatusMessageManager::FLASH_BAG_TYPE_CONTENT_ELEMENT => 'Meldungen für ein spezielles Inhaltselement',
+    \HeimrichHannot\StatusMessageBundle\Manager\StatusMessageManager::SCOPE_TYPE_GENERAL => 'Allgemeine Meldungen',
+    \HeimrichHannot\StatusMessageBundle\Manager\StatusMessageManager::SCOPE_TYPE_MODULE => 'Meldungen für ein spezielles Modul',
+    \HeimrichHannot\StatusMessageBundle\Manager\StatusMessageManager::SCOPE_TYPE_CONTENT_ELEMENT => 'Meldungen für ein spezielles Inhaltselement',
 ];

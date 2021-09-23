@@ -41,16 +41,16 @@ class StatusMessageQueueModuleController extends AbstractFrontendModuleControlle
     {
         $templateData = [];
 
-        if (ModuleContainer::FLASH_BAG_KEY_TYPE_MANUAL === $module->statusMessageFlashBagKeyMode) {
-            $flashBagKey = $module->statusMessageFlashBagKeyTextual;
+        if (ModuleContainer::SCOPE_KEY_TYPE_MANUAL === $module->statusMessageScopeKeyMode) {
+            $scopeKey = $module->statusMessageScopeKeyTextual;
         } else {
-            $flashBagKey = $this->statusMessageManager->getFlashBagKey(
-                $module->statusMessageFlashBagType,
-                $module->statusMessageFlashBagContext
+            $scopeKey = $this->statusMessageManager->getScopeKey(
+                $module->statusMessageScopeType,
+                $module->statusMessageScopeContext
             );
         }
 
-        $templateData['flashBagKey'] = $flashBagKey;
+        $templateData['scopeKey'] = $scopeKey;
 
         $templateName = $this->twigTemplateLocator->getTemplatePath(
             $module->statusMessageQueueTemplate ?: 'huh_status_message_queue_default.html.twig'

@@ -17,14 +17,14 @@ class StatusMessageManager
     const MESSAGE_TYPE_ERROR = 'error';
     const MESSAGE_TYPE_TEXT = 'text';
 
-    const FLASH_BAG_TYPE_GENERAL = 'general';
-    const FLASH_BAG_TYPE_MODULE = 'module';
-    const FLASH_BAG_TYPE_CONTENT_ELEMENT = 'content_element';
+    const SCOPE_TYPE_GENERAL = 'general';
+    const SCOPE_TYPE_MODULE = 'module';
+    const SCOPE_TYPE_CONTENT_ELEMENT = 'content_element';
 
-    const FLASH_BAG_TYPES = [
-        self::FLASH_BAG_TYPE_GENERAL,
-        self::FLASH_BAG_TYPE_MODULE,
-        self::FLASH_BAG_TYPE_CONTENT_ELEMENT,
+    const SCOPE_TYPES = [
+        self::SCOPE_TYPE_GENERAL,
+        self::SCOPE_TYPE_MODULE,
+        self::SCOPE_TYPE_CONTENT_ELEMENT,
     ];
 
     const SESSION_KEY = 'huh_status_message';
@@ -36,10 +36,10 @@ class StatusMessageManager
         $this->session = $session;
     }
 
-    public function addMessage(string $text, string $messageType, string $flashBagKey): void
+    public function addMessage(string $text, string $messageType, string $scopeKey): void
     {
         $this->session->getFlashBag()->add(
-            $flashBagKey,
+            $scopeKey,
             [
                 'type' => $messageType,
                 'text' => $text,
@@ -47,41 +47,41 @@ class StatusMessageManager
         );
     }
 
-    public function hasMessages(string $flashBagKey): bool
+    public function hasMessages(string $scopeKey): bool
     {
-        return $this->session->getFlashBag()->has($flashBagKey);
+        return $this->session->getFlashBag()->has($scopeKey);
     }
 
-    public function getMessages(string $flashBagKey): array
+    public function getMessages(string $scopeKey): array
     {
         return $this->session->getFlashBag()->get(
-            $flashBagKey,
+            $scopeKey,
             []
         );
     }
 
-    public function addSuccessMessage(string $text, string $flashBagKey): void
+    public function addSuccessMessage(string $text, string $scopeKey): void
     {
-        $this->addMessage($text, static::MESSAGE_TYPE_SUCCESS, $flashBagKey);
+        $this->addMessage($text, static::MESSAGE_TYPE_SUCCESS, $scopeKey);
     }
 
-    public function addWarningMessage(string $text, string $flashBagKey): void
+    public function addWarningMessage(string $text, string $scopeKey): void
     {
-        $this->addMessage($text, static::MESSAGE_TYPE_WARNING, $flashBagKey);
+        $this->addMessage($text, static::MESSAGE_TYPE_WARNING, $scopeKey);
     }
 
-    public function addErrorMessage(string $text, string $flashBagKey): void
+    public function addErrorMessage(string $text, string $scopeKey): void
     {
-        $this->addMessage($text, static::MESSAGE_TYPE_ERROR, $flashBagKey);
+        $this->addMessage($text, static::MESSAGE_TYPE_ERROR, $scopeKey);
     }
 
-    public function addTextMessage(string $text, string $flashBagKey): void
+    public function addTextMessage(string $text, string $scopeKey): void
     {
-        $this->addMessage($text, static::MESSAGE_TYPE_TEXT, $flashBagKey);
+        $this->addMessage($text, static::MESSAGE_TYPE_TEXT, $scopeKey);
     }
 
-    public function getFlashBagKey(string $flashBagType = self::FLASH_BAG_TYPE_GENERAL, $context = null): string
+    public function getScopeKey(string $scopeType = self::SCOPE_TYPE_GENERAL, $context = null): string
     {
-        return static::SESSION_KEY.".$flashBagType.".($context ? ".$context" : '');
+        return static::SESSION_KEY.".$scopeType".($context ? ".$context" : '');
     }
 }

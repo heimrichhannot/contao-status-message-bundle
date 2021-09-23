@@ -36,16 +36,16 @@ you need to tell the `StatusMessageManager` the scope of the message, you'd like
 
 Currently, the scope can be:
 
-1. General -> no specific context
-2. Module -> a specific frontend module (id must be passed)
-3. Content element -> a specific frontend content element (id must be passed)
+1. **General** -> no specific context
+2. **Module** -> a specific frontend module (id must be passed)
+3. **Content element** -> a specific frontend content element (id must be passed)
 
 Internally this bundle uses symfony's [session flash bag API](https://symfony.com/doc/4.4/components/http_foundation/sessions.html#flash-messages).
 If you're not familiar with these, please take a look into the documentation.
 
-Hence, the scope described above is described by the **flash bag key**.
+Hence, the **scope** described above is described by the **flash bag key**. For the sake of ease, we call it **scope key** in the context of this bundle.
 
-For example, if you like to bind your messages to a specific module, the flash bag key might be something like
+For example, if you like to bind your messages to a specific module, the scope key might be something like
 `huh_status_message.module.1234` whereas `module` is the scope and `1234` is the module id.
 
 ## Usage
@@ -57,16 +57,16 @@ use HeimrichHannot\StatusMessageBundle\Manager\StatusMessageManager;
 
 // ...
 
-// use this flash bag key to output the messages after you've added them (see below)
-$flashBagKey = $this->statusMessageManager->getFlashBagKey(
-    StatusMessageManager::FLASH_BAG_TYPE_MODULE,
+// use this scope key to output the messages after you've added them (see below)
+$scopeKey = $this->statusMessageManager->getScopeKey(
+    StatusMessageManager::SCOPE_TYPE_MODULE,
     $module->id
 );
 
 // of course, you can also use autowiring ;-)
 System::getContainer()->get(StatusMessageManager::class)->addSuccessMessage(
     'Everything worked well :-)',
-    $flashBagKey
+    $scopeKey
 );
 ```
 
@@ -80,12 +80,12 @@ is rendered, the messages are displayed after a site reload only (messages are s
 
 ### Programmatically output messages in twig templates
 
-Simply pass the flash bag key to your twig template and use symfony's flash API to output the messages
-(`flashBagKey` might be something `huh_status_message.module.1234` whereas `module` is the scope and `1234` is the module id):
+Simply pass the scope key (which is the flash bag key internally) to your twig template and use symfony's flash API to output the messages
+(`scopeKey` might be something `huh_status_message.module.1234` whereas `module` is the scope and `1234` is the module id):
 
 ```twig
-{% if app.session.flashBag.peek(flashBagKey) is not empty %}
-    {% for message in app.flashes(flashBagKey) %}
+{% if app.session.flashBag.peek(scopeKey) is not empty %}
+    {% for message in app.flashes(scopeKey) %}
         <div class="{{ message.type }}">
             {{ message.text }}
         </div>
@@ -97,14 +97,14 @@ Simply pass the flash bag key to your twig template and use symfony's flash API 
 
 ### Programmatically output messages in traditional html5 templates
 
-Simply pass the flash bag key to your template and use symfony's flash API to output the messages
-(`flashBagKey` might be something `huh_status_message.module.1234` whereas `module` is the scope and `1234` is the module id):
+Simply pass the scope key (which is the flash bag key internally) to your template and use symfony's flash API to output the messages
+(`scopeKey` might be something `huh_status_message.module.1234` whereas `module` is the scope and `1234` is the module id):
 
 ```php
 <?php $statusMessageManager = System::getContainer()->get(\HeimrichHannot\StatusMessageBundle\Manager\StatusMessageManager::class) ?>
 
-<?php if ($statusMessageManager->hasMessages($this->flashBagKey)): ?>
-    <?php $messages = $statusMessageManager->getMessages($this->flashBagKey); ?>
+<?php if ($statusMessageManager->hasMessages($this->scopeKey)): ?>
+    <?php $messages = $statusMessageManager->getMessages($this->scopeKey); ?>
 
     <?php foreach ($messages as $message): ?>
         <div class="<?= $message['type'] ?>">

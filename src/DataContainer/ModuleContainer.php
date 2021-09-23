@@ -18,11 +18,11 @@ use HeimrichHannot\UtilsBundle\Model\ModelUtil;
 class ModuleContainer
 {
     const FLASH_BAG_KEY_TYPE_STANDARD = 'standard';
-    const FLASH_BAG_KEY_TYPE_MANUAL = 'textual';
+    const SCOPE_KEY_TYPE_MANUAL = 'textual';
 
     const FLASH_BAG_KEY_TYPES = [
         self::FLASH_BAG_KEY_TYPE_STANDARD,
-        self::FLASH_BAG_KEY_TYPE_MANUAL,
+        self::SCOPE_KEY_TYPE_MANUAL,
     ];
 
     protected ModelInstanceChoice $modelInstanceChoice;
@@ -41,17 +41,17 @@ class ModuleContainer
      */
     public function getStatusMessageContextAsOptions(DataContainer $dc)
     {
-        if (null === ($module = $this->modelUtil->findModelInstanceByPk('tl_module', $dc->id)) || !$module->statusMessageFlashBagType) {
+        if (null === ($module = $this->modelUtil->findModelInstanceByPk('tl_module', $dc->id)) || !$module->statusMessageScopeType) {
             return [];
         }
 
-        switch ($module->statusMessageFlashBagType) {
-            case StatusMessageManager::FLASH_BAG_TYPE_MODULE:
+        switch ($module->statusMessageScopeType) {
+            case StatusMessageManager::SCOPE_TYPE_MODULE:
                 $table = 'tl_module';
 
                 break;
 
-            case StatusMessageManager::FLASH_BAG_TYPE_CONTENT_ELEMENT:
+            case StatusMessageManager::SCOPE_TYPE_CONTENT_ELEMENT:
                 $table = 'tl_content';
 
                 break;
