@@ -27,7 +27,7 @@ $lang['statusMessageQueueTemplate'][1] = 'Wählen Sie hier das gewünschte Templ
  * Reference
  */
 $lang['reference']['huhStatusMessageBundle'] = [
-    \HeimrichHannot\StatusMessageBundle\DataContainer\ModuleContainer::FLASH_BAG_KEY_TYPE_STANDARD => 'Standard',
+    \HeimrichHannot\StatusMessageBundle\DataContainer\ModuleContainer::SCOPE_KEY_TYPE_STANDARD => 'Standard',
     \HeimrichHannot\StatusMessageBundle\DataContainer\ModuleContainer::SCOPE_KEY_TYPE_MANUAL => 'Manuell',
 
     \HeimrichHannot\StatusMessageBundle\Manager\StatusMessageManager::SCOPE_TYPE_GENERAL => 'Allgemeine Meldungen',

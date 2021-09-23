@@ -17,11 +17,11 @@ use HeimrichHannot\UtilsBundle\Model\ModelUtil;
 
 class ModuleContainer
 {
-    const FLASH_BAG_KEY_TYPE_STANDARD = 'standard';
-    const SCOPE_KEY_TYPE_MANUAL = 'textual';
+    const SCOPE_KEY_TYPE_STANDARD = 'standard';
+    const SCOPE_KEY_TYPE_MANUAL = 'manual';
 
-    const FLASH_BAG_KEY_TYPES = [
-        self::FLASH_BAG_KEY_TYPE_STANDARD,
+    const SCOPE_KEY_TYPES = [
+        self::SCOPE_KEY_TYPE_STANDARD,
         self::SCOPE_KEY_TYPE_MANUAL,
     ];
 

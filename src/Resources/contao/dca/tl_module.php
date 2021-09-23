@@ -22,7 +22,7 @@ $dca['palettes'][StatusMessageQueueModuleController::TYPE] =
 /*
  * Subpalettes
  */
-$dca['subpalettes']['statusMessageScopeKeyMode_'.ModuleContainer::FLASH_BAG_KEY_TYPE_STANDARD] = 'statusMessageScopeType,statusMessageScopeContext';
+$dca['subpalettes']['statusMessageScopeKeyMode_'.ModuleContainer::SCOPE_KEY_TYPE_STANDARD] = 'statusMessageScopeType,statusMessageScopeContext';
 $dca['subpalettes']['statusMessageScopeKeyMode_'.ModuleContainer::SCOPE_KEY_TYPE_MANUAL] = 'statusMessageScopeTypeTextual';
 
 /**
@@ -33,7 +33,7 @@ $fields = [
         'exclude' => true,
         'filter' => true,
         'inputType' => 'select',
-        'options' => ModuleContainer::FLASH_BAG_KEY_TYPES,
+        'options' => ModuleContainer::SCOPE_KEY_TYPES,
         'reference' => &$GLOBALS['TL_LANG']['tl_module']['reference']['huhStatusMessageBundle'],
         'eval' => ['tl_class' => 'w50', 'mandatory' => true, 'includeBlankOption' => true, 'submitOnChange' => true],
         'sql' => "varchar(16) NOT NULL default 'standard'",

@@ -115,3 +115,20 @@ Simply pass the scope key (which is the flash bag key internally) to your templa
     <!-- do something else -->
 <?php endif; ?>
 ```
+
+## Developer notes
+
+### Why not use the Contao\Message class?
+
+Of course, we use core classes if they're suiting our needs. One disadvantage is that the scope of a message is always
+determined by the scope string **and the message type** (see `static::getFlashBagKey($strType, $strScope)`):
+
+```php
+public static function add($strMessage, $strType, $strScope=TL_MODE) {
+    // ...
+
+    System::getContainer()->get('session')->getFlashBag()->add(static::getFlashBagKey($strType, $strScope), $strMessage);
+}
+```
+
+This way, we couldn't have message queues with messages of mixed types.
