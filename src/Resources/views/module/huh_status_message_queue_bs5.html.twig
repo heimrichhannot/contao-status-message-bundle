@@ -1,0 +1,3 @@
+{% extends '@HeimrichHannotStatusMessage/module/huh_status_message_queue_default.html.twig' %}
+
+{% block messageCssClass %} alert alert-{{ message.type == 'error' ? 'danger' : message.type }}{% endblock %}

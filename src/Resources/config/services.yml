@@ -5,4 +5,4 @@ services:
     public: true
 
   HeimrichHannot\StatusMessageBundle\:
-    resource: '../../{Manager}/*'
+    resource: '../../{Controller,DataContainer,Manager}/*'

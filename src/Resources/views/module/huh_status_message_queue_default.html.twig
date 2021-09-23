@@ -1,0 +1,9 @@
+{% if app.session.flashBag.peek(flashBagKey) is not empty %}
+    <div class="messages">
+        {% for message in app.flashes(flashBagKey) %}
+            <div class="{{ message.type }}{% block messageCssClass %}{% endblock %}">
+                {{ message.text }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
