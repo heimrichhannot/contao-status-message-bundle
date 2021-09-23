@@ -18,18 +18,19 @@ use HeimrichHannot\UtilsBundle\Model\ModelUtil;
 class ModuleContainer
 {
     const FLASH_BAG_KEY_TYPE_STANDARD = 'standard';
-    const FLASH_BAG_KEY_TYPE_MANUAL   = 'textual';
+    const FLASH_BAG_KEY_TYPE_MANUAL = 'textual';
 
     const FLASH_BAG_KEY_TYPES = [
         self::FLASH_BAG_KEY_TYPE_STANDARD,
-        self::FLASH_BAG_KEY_TYPE_MANUAL
+        self::FLASH_BAG_KEY_TYPE_MANUAL,
     ];
 
     protected ModelInstanceChoice $modelInstanceChoice;
     protected TwigTemplateLocator $twigTemplateLocator;
     protected ModelUtil           $modelUtil;
 
-    public function __construct(ModelInstanceChoice $modelInstanceChoice, TwigTemplateLocator $twigTemplateLocator, ModelUtil $modelUtil) {
+    public function __construct(ModelInstanceChoice $modelInstanceChoice, TwigTemplateLocator $twigTemplateLocator, ModelUtil $modelUtil)
+    {
         $this->modelInstanceChoice = $modelInstanceChoice;
         $this->twigTemplateLocator = $twigTemplateLocator;
         $this->modelUtil = $modelUtil;
@@ -40,25 +41,28 @@ class ModuleContainer
      */
     public function getStatusMessageContextAsOptions(DataContainer $dc)
     {
-        if (null === ($module = $this->modelUtil->findModelInstanceByPk('tl_module', $dc->id)) || !$module->statusMessageFlashBagType)
-        {
+        if (null === ($module = $this->modelUtil->findModelInstanceByPk('tl_module', $dc->id)) || !$module->statusMessageFlashBagType) {
             return [];
         }
 
         switch ($module->statusMessageFlashBagType) {
             case StatusMessageManager::FLASH_BAG_TYPE_MODULE:
                 $table = 'tl_module';
+
                 break;
+
             case StatusMessageManager::FLASH_BAG_TYPE_CONTENT_ELEMENT:
                 $table = 'tl_content';
+
                 break;
+
             default:
                 // TODO event
                 break;
         }
 
         return $this->modelInstanceChoice->getChoices([
-            'dataContainer' => $table
+            'dataContainer' => $table,
         ]);
     }
 

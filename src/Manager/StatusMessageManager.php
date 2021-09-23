@@ -14,11 +14,11 @@ class StatusMessageManager
 {
     const MESSAGE_TYPE_SUCCESS = 'success';
     const MESSAGE_TYPE_WARNING = 'warning';
-    const MESSAGE_TYPE_ERROR   = 'error';
-    const MESSAGE_TYPE_TEXT    = 'text';
+    const MESSAGE_TYPE_ERROR = 'error';
+    const MESSAGE_TYPE_TEXT = 'text';
 
-    const FLASH_BAG_TYPE_GENERAL         = 'general';
-    const FLASH_BAG_TYPE_MODULE          = 'module';
+    const FLASH_BAG_TYPE_GENERAL = 'general';
+    const FLASH_BAG_TYPE_MODULE = 'module';
     const FLASH_BAG_TYPE_CONTENT_ELEMENT = 'content_element';
 
     const FLASH_BAG_TYPES = [
@@ -42,7 +42,7 @@ class StatusMessageManager
             $flashBagKey,
             [
                 'type' => $messageType,
-                'text' => $text
+                'text' => $text,
             ]
         );
     }
@@ -82,6 +82,6 @@ class StatusMessageManager
 
     public function getFlashBagKey(string $flashBagType = self::FLASH_BAG_TYPE_GENERAL, $context = null): string
     {
-        return static::SESSION_KEY . ".$flashBagType." . ($context ? ".$context" : "");
+        return static::SESSION_KEY.".$flashBagType.".($context ? ".$context" : '');
     }
 }

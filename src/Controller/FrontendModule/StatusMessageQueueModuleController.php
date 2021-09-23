@@ -41,7 +41,7 @@ class StatusMessageQueueModuleController extends AbstractFrontendModuleControlle
     {
         $templateData = [];
 
-        if ($module->statusMessageFlashBagKeyMode === ModuleContainer::FLASH_BAG_KEY_TYPE_MANUAL) {
+        if (ModuleContainer::FLASH_BAG_KEY_TYPE_MANUAL === $module->statusMessageFlashBagKeyMode) {
             $flashBagKey = $module->statusMessageFlashBagKeyTextual;
         } else {
             $flashBagKey = $this->statusMessageManager->getFlashBagKey(
